@@ -1,6 +1,14 @@
 import utime
 import network
-from machine import I2C, Pin, RTC, DEEPSLEEP, DEEPSLEEP_RESET, reset_cause, deepsleep
+from machine import (
+    SoftI2C,
+    Pin,
+    RTC,
+    DEEPSLEEP,
+    DEEPSLEEP_RESET,
+    reset_cause,
+    deepsleep,
+)
 from umqtt.simple import MQTTClient
 
 import ahtx0
@@ -20,7 +28,7 @@ rtc.irq(trigger=rtc.ALARM0, wake=DEEPSLEEP)
 
 # check if the device woke from a deep sleep
 if reset_cause() == DEEPSLEEP_RESET:
-    print('woke from a deep sleep')
+    print("woke from a deep sleep")
 
 # set RTC.ALARM0 to fire after 10 seconds (waking the device)
 rtc.alarm(rtc.ALARM0, 10000)

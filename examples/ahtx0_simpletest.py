@@ -1,10 +1,10 @@
 import utime
-from machine import Pin, I2C
+from machine import Pin, SoftI2C
 
 import ahtx0
 
 # I2C for the Wemos D1 Mini with ESP8266
-i2c = I2C(scl=Pin(5), sda=Pin(4))
+i2c = SoftI2C(scl=Pin(5), sda=Pin(4))
 
 # Create the sensor object using I2C
 sensor = ahtx0.AHT10(i2c)

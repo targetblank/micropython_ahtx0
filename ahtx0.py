@@ -95,7 +95,7 @@ class AHT10:
 
     def _read_to_buffer(self):
         self._i2c.readfrom_into(self._address, self._buf)
-    
+
     def _trigger_measurement(self):
         """Internal function for triggering the AHT to read temp/humidity"""
         self._buf[0] = self.AHTX0_CMD_TRIGGER
@@ -113,5 +113,5 @@ class AHT10:
         self._read_to_buffer()
 
 
-class AHT20(AHT10): 
+class AHT20(AHT10):
     AHTX0_CMD_INITIALIZE = 0xBE  # Calibration command
