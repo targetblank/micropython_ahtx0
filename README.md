@@ -1,6 +1,6 @@
 # micropython_ahtx0
 
-MicroPython driver for the AHT10 and AHT20 temperature and humindity sensors.
+MicroPython driver for the AHT10 and AHT20 temperature and humidity sensors.
 
 ## Example usage
 
@@ -21,3 +21,13 @@ while True:
     print("Humidity: %0.2f %%" % sensor.relative_humidity)
     utime.sleep(5)
 ```
+
+## Changelog
+
+### 0.1.1
+
+- fixed code style and typos
+
+### 0.1.0
+
+- initial release

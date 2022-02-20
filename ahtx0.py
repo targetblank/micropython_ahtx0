@@ -74,14 +74,15 @@ class AHT10:
     def status(self):
         """The status byte initially returned from the sensor, see datasheet for details"""
         self._read_to_buffer()
-        # print("status: "+hex(self._buf[0]))
         return self._buf[0]
 
     @property
     def relative_humidity(self):
         """The measured relative humidity in percent."""
         self._perform_measurement()
-        self._humidity = (self._buf[1] << 12) | (self._buf[2] << 4) | (self._buf[3] >> 4)
+        self._humidity = (
+            (self._buf[1] << 12) | (self._buf[2] << 4) | (self._buf[3] >> 4)
+        )
         self._humidity = (self._humidity * 100) / 0x100000
         return self._humidity
 
@@ -94,8 +95,9 @@ class AHT10:
         return self._temp
 
     def _read_to_buffer(self):
+        """Read sensor data to buffer"""
         self._i2c.readfrom_into(self._address, self._buf)
-    
+
     def _trigger_measurement(self):
         """Internal function for triggering the AHT to read temp/humidity"""
         self._buf[0] = self.AHTX0_CMD_TRIGGER
@@ -104,14 +106,16 @@ class AHT10:
         self._i2c.writeto(self._address, self._buf[0:3])
 
     def _wait_for_idle(self):
+        """Wait until sensor can receive a new command"""
         while self.status & self.AHTX0_STATUS_BUSY:
             utime.sleep_ms(5)
 
     def _perform_measurement(self):
+        """Trigger measurement and write result to buffer"""
         self._trigger_measurement()
         self._wait_for_idle()
         self._read_to_buffer()
 
 
-class AHT20(AHT10): 
+class AHT20(AHT10):
     AHTX0_CMD_INITIALIZE = 0xBE  # Calibration command
