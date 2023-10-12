@@ -24,6 +24,10 @@ while True:
 
 ## Changelog
 
+### 0.1.2
+
+- fixed packaging
+
 ### 0.1.1
 
 - fixed code style and typos
